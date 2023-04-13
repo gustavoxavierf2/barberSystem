@@ -19,81 +19,74 @@
   
     <v-card>
       <v-layout>
-        <div style="display: flex;">
+        <!--<div style="display: flex;"> -->
           <v-navigation-drawer color="grey-darken-2" permanent :order="order" width="200"  >
             <v-list style="padding: 0px;">
-              <v-list-item title="Barra Navegação" style="display: flex; justify-content: center; padding-bottom: 75px">
-                
-              </v-list-item>
-                <v-list-item style="">
-                      <div class="text-center">
-                        
-                            <v-menu :location="location">
-                              <template v-slot:activator="{ props }">
-                                <v-btn 
-                                  
-                                  size="large"
-                                  append-icon="mdi-account-circle"
-                                  color="primary"
-                                  dark
-                                  v-bind="props"
-                                  
-                                    >
-                                      Cliente
-                                </v-btn>
-                              </template>
+              <v-list-item title="Barra Navegação" style="display: flex; justify-content: center ; padding-bottom: 75px">
 
-                          <v-list>
-                            <v-list-item
-                              v-for="(item, index) in items"
-                              :key="index"
-                                >
-                            <v-list-item-title>{{ item.title }}</v-list-item-title>
-                            
-                            </v-list-item>
-                          </v-list>
-                        </v-menu>
-                      </div>     
-              </v-list-item>
-              
+                </v-list-item>
+
+                  <v-list-item style="" v-for="(item, i) in menu_lateral" :key="i">
+                        <div class="text-center">
+                          
+                              <v-menu :location="location">
+                                <template v-slot:activator="{ props }">
+                                  <v-btn 
+                                    
+                                    size="large"
+                                    append-icon=""
+                                    color="primary"
+                                    dark
+                                    v-bind="props"
+                                    width="280"
+                                    class=""
+                                      > {{item.title}}
+                                        <v-icon  icon="mdi-vuetify"></v-icon>
+                                  </v-btn>
+                                </template>
+
+                            <v-list>
+                              <v-list-item
+                                v-for="(item, index) in items"
+                                :key="index"
+                                  >
+                              <v-list-item-title>
+                                <v-btn style="background-color: grey; color:antiquewhite">
+                                 
+                                  <router-link to="/Cadastrar_Cliente"> {{ item.title }}</router-link>
+                                </v-btn>
+                              </v-list-item-title>
+                              
+                              </v-list-item>
+                            </v-list>
+                          </v-menu>
+                        </div>     
+                </v-list-item>
+                
             </v-list>
           </v-navigation-drawer>
 
-          <div style="margin-left: 200px; background-color: blanchedalmond; width: 1150px;" >
-              <div  class="TopBar">
-                    <v-icon  icon="mdi-vuetify"></v-icon>
-                    <h1  >BARBER SYSTEM</h1>
-                    <v-icon icon="mdi-vuetify"></v-icon>
-              </div>
+          <v-app-bar height="100" color="grey-darken-2">
+            <v-icon style="margin-left: 50px" icon="mdi-vuetify"></v-icon>
+            <h1>BARBER SYSTEM</h1>
+            <v-icon icon="mdi-vuetify"></v-icon>
 
-            <v-main style="min-height: 300px;height: 530px;" class="Content">
+          </v-app-bar>
 
-            </v-main>
-          </div>
-          
-        </div>
-      </v-layout>
-    </v-card>
-    <!--
-    <div >
-    </div>
-    <div>
-      <div elevation="1" height="100"  >
-        
-    </div>
+          <router-view/> <!--Visualização dos componentes por meio das rotas-->
 
-    <v-main>
-        <v-card height="530px"  >
-          
-        </v-card>
-    </v-main>
-    </div>
-    -->
     
+      </v-layout>
+    </v-card>  
 </template>
 
 <script>
+import itensLaterais from './components/itensLaterais.vue'
+
   export default {
+    components: {
+      itensLaterais
+    },
     data: () => ({
       items: [
         { title: 'Cadastrar' },
@@ -104,6 +97,12 @@
       location: 'end',
       Modulos: [
         
+      ],
+      menu_lateral:[
+        {title: 'Cliente'},
+        {title: 'Funcionario'},
+        {title: 'Servico'},
+        {title:  'Agendamento'}
       ]
     }),
   }
@@ -112,6 +111,12 @@
 
 
 <style scoped>
+@media only screen and (min-width: 200px){
+  .Content{
+    background-color: aqua;
+  }
+}
+
 .TopBar{
   height: 100px;
   display:flex;
@@ -121,12 +126,14 @@
   
   
 }
+
 .Content{
   background-color: black;
   opacity: 90%;
   background-image: url("./assets/BackGround.jpg");
+  background-size: cover;
+  margin-left: 180px;
 }
-
 
 /*
 #app {
